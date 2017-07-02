@@ -46,8 +46,9 @@ namespace FlatShareParser
             }
         }
 
-        public async void beginSearch()
+        public async void beginSearch(int maximumDistanceInSeconds)
         {
+            Console.WriteLine("Searching for flatshares within " + Math.Round(maximumDistanceInSeconds/60.0, 2) + " minutes from work.");
             while (true)
             {
                 flatSearchList = new Dictionary<String, HtmlDocument>();
@@ -87,7 +88,7 @@ namespace FlatShareParser
                         foreach (XElement element in xDoc.Descendants("duration"))
                         {
                             dbHelper.addItem(d.Key, element.Descendants("text").First().Value, Int32.Parse(element.Descendants("value").First().Value));
-                            if (Int32.Parse(element.Descendants("value").First().Value) < 2000)
+                            if (Int32.Parse(element.Descendants("value").First().Value) < maximumDistanceInSeconds)
                             {
                                 var message = "New apartment! " + d.Key + " - distance by bike: " + element.Descendants("text").First().Value;
                                 tHelper.sendMessage(message);

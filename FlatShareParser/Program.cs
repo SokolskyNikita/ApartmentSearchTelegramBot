@@ -13,7 +13,25 @@ namespace FlatShareParser
         static void Main(string[] args)
         {
             FlatMateChecker flatmateChecker = new FlatMateChecker();
-            flatmateChecker.beginSearch();
+            int timeToSearch = 2000;
+            bool timeInputCorrect = false;
+
+
+            while(!timeInputCorrect)
+            {
+                Console.WriteLine("Specify maximum seconds for bicycle distance? (between 600 and 6000)");
+                string inputTime = Console.ReadLine();
+                timeInputCorrect = Int32.TryParse(inputTime, out timeToSearch);
+                if (timeInputCorrect)
+                {
+                    if (!(timeToSearch > 600 && timeToSearch < 6000))
+                    {
+                        timeInputCorrect = false;
+                    }
+                }
+            }
+            
+            flatmateChecker.beginSearch(timeToSearch);
             Console.ReadLine();
         }
     }
