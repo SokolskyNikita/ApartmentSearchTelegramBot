@@ -14,6 +14,12 @@ namespace FlatShareParser
             db = new DataClasses1DataContext();
         }
 
+        public List<string> getFlatSearchURLs()
+        {
+            var urls = from a in db.FlatSearchURLs select a.URL;
+            return urls.ToList();
+        }
+
         public bool itemExists(string URL)
         {
             var e = from a in db.Flatmates where a.URL == URL select a;
