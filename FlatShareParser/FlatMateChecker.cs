@@ -23,8 +23,7 @@ namespace FlatShareParser
             web.UsingCache = false;
             web.UserAgent = "Mozilla /5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1";
             dbHelper = new DbHelper();
-            tHelper = new TelegramHelper();
-            flatSearchURLs = dbHelper.getFlatSearchURLs();
+            tHelper = new TelegramHelper(dbHelper.getTelegramApiKey());            
             urlFlatmates = @"https://flatmates.com.au";
         }
 
@@ -40,8 +39,7 @@ namespace FlatShareParser
                 if (!dbHelper.itemExists(url) && !flatSearchList.ContainsKey(url))
                 {
                     var urlHtml = web.Load(url);
-                    flatSearchList.Add(url, urlHtml);
-                    Console.WriteLine("Added URL: " + url);
+                    flatSearchList.Add(url, urlHtml);                    
                 }
             }
         }
@@ -51,6 +49,7 @@ namespace FlatShareParser
             Console.WriteLine("Searching for flatshares within " + Math.Round(maximumDistanceInSeconds/60.0, 2) + " minutes from work.");
             while (true)
             {
+                flatSearchURLs = dbHelper.getFlatSearchURLs();
                 flatSearchList = new Dictionary<String, HtmlDocument>();
                 foreach (var mainPageURL in flatSearchURLs)
                 {
@@ -77,7 +76,7 @@ namespace FlatShareParser
                 }
                 var mapsApiFirstString = "https://maps.googleapis.com/maps/api/distancematrix/xml?origins=";
                 var mapsApiSecondString = "&destinations=343+Royal+Parade+Melbourne&mode=bicycling&key=";
-                var apiKey = "AIzaSyDWxwY9WuhFBOESSM33QCF6vWanOeHkMJQ";
+                var apiKey = dbHelper.getTransitApiKey();
 
                 foreach (KeyValuePair<String, String> d in flatsLocations)
                 {
@@ -87,6 +86,7 @@ namespace FlatShareParser
                         var xDoc = XDocument.Load(url);
                         foreach (XElement element in xDoc.Descendants("duration"))
                         {
+                            Console.WriteLine(d.Key + " - distance: " + element.Descendants("text").First().Value);
                             dbHelper.addItem(d.Key, element.Descendants("text").First().Value, Int32.Parse(element.Descendants("value").First().Value));
                             if (Int32.Parse(element.Descendants("value").First().Value) < maximumDistanceInSeconds)
                             {

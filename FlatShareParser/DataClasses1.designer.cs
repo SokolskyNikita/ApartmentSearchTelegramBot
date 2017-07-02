@@ -36,6 +36,9 @@ namespace FlatShareParser
     partial void InsertFlatSearchURL(FlatSearchURL instance);
     partial void UpdateFlatSearchURL(FlatSearchURL instance);
     partial void DeleteFlatSearchURL(FlatSearchURL instance);
+    partial void InsertApiKey(ApiKey instance);
+    partial void UpdateApiKey(ApiKey instance);
+    partial void DeleteApiKey(ApiKey instance);
     #endregion
 		
 		public DataClasses1DataContext() : 
@@ -81,6 +84,14 @@ namespace FlatShareParser
 			get
 			{
 				return this.GetTable<FlatSearchURL>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ApiKey> ApiKeys
+		{
+			get
+			{
+				return this.GetTable<ApiKey>();
 			}
 		}
 	}
@@ -280,6 +291,116 @@ namespace FlatShareParser
 					this._URL = value;
 					this.SendPropertyChanged("URL");
 					this.OnURLChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ApiKeys")]
+	public partial class ApiKey : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private string _ServiceName;
+		
+		private string _ApiKey1;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnServiceNameChanging(string value);
+    partial void OnServiceNameChanged();
+    partial void OnApiKey1Changing(string value);
+    partial void OnApiKey1Changed();
+    #endregion
+		
+		public ApiKey()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ServiceName", DbType="NVarChar(MAX)")]
+		public string ServiceName
+		{
+			get
+			{
+				return this._ServiceName;
+			}
+			set
+			{
+				if ((this._ServiceName != value))
+				{
+					this.OnServiceNameChanging(value);
+					this.SendPropertyChanging();
+					this._ServiceName = value;
+					this.SendPropertyChanged("ServiceName");
+					this.OnServiceNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="ApiKey", Storage="_ApiKey1", DbType="NVarChar(MAX)")]
+		public string ApiKey1
+		{
+			get
+			{
+				return this._ApiKey1;
+			}
+			set
+			{
+				if ((this._ApiKey1 != value))
+				{
+					this.OnApiKey1Changing(value);
+					this.SendPropertyChanging();
+					this._ApiKey1 = value;
+					this.SendPropertyChanged("ApiKey1");
+					this.OnApiKey1Changed();
 				}
 			}
 		}

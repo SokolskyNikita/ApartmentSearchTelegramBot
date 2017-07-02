@@ -11,9 +11,9 @@ namespace FlatShareParser
     {
         TelegramBotClient Bot;
 
-        public TelegramHelper()
+        public TelegramHelper(string ApiKey)
         {
-            Bot = new Telegram.Bot.TelegramBotClient("440800479:AAEJ8QZNBdWuz02Vc1Hr76mpY5LwMQRbZeA");
+            Bot = new Telegram.Bot.TelegramBotClient(ApiKey);
         }
 
         public void sendMessage(string message)

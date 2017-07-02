@@ -20,6 +20,18 @@ namespace FlatShareParser
             return urls.ToList();
         }
 
+        public string getTelegramApiKey()
+        {
+            var keys = from a in db.ApiKeys where a.ServiceName == "TelegramBotApi" select a.ApiKey1;
+            return keys.First();
+        }
+
+        public string getTransitApiKey()
+        {
+            var keys = from a in db.ApiKeys where a.ServiceName == "GoogleTransitApi" select a.ApiKey1;
+            return keys.First();
+        }
+
         public bool itemExists(string URL)
         {
             var e = from a in db.Flatmates where a.URL == URL select a;
