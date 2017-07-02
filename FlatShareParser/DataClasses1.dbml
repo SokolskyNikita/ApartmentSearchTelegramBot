@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="FlatMate" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=localhost;Initial Catalog=FlatMate;Integrated Security=True" SettingsObjectName="FlatShareParser.Properties.Settings" SettingsPropertyName="FlatMateConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Flatmate" Member="Flatmates">
+    <Type Name="Flatmate">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="URL" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="DistanceInSeconds" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DistanceText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>
