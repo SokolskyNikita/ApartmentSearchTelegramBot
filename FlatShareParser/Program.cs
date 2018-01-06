@@ -19,7 +19,7 @@ namespace FlatShareParser
 
             while(!timeInputCorrect)
             {
-                Console.WriteLine("Specify maximum seconds for bicycle distance? (between 600 and 6000)");
+                Console.WriteLine("Specify maximum seconds for public transport distance? (between 600 and 6000)");
                 string inputTime = Console.ReadLine();
                 timeInputCorrect = Int32.TryParse(inputTime, out timeToSearch);
                 if (timeInputCorrect)

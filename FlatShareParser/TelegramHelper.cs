@@ -18,7 +18,7 @@ namespace FlatShareParser
 
         public void sendMessage(string message)
         {
-            var t = Bot.SendTextMessageAsync(-231382622, message);
+            var t = Bot.SendTextMessageAsync(-223802849, message);
         }
         
 
